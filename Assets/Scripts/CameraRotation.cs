@@ -18,7 +18,8 @@ public class CameraRotation : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
-            transform.eulerAngles += rotationSpeed * new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
+            // Rotate the camera around the player, along the Y-axis (circling horizontally), based on the mouse's horizontal movement
+            transform.RotateAround(GameManager.instance.Player.transform.position, Vector3.up, rotationSpeed * Input.GetAxis("Mouse X"));
         }
     }
 }

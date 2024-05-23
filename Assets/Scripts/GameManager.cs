@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject player;
+    public GameObject Player { get { return player; } }
 
     // Start is called before the first frame update
     void Start()
