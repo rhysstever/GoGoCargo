@@ -23,22 +23,22 @@ public class BoatMovement : MonoBehaviour
         
     }
 
-	private void FixedUpdate()
-	{
+    private void FixedUpdate()
+    {
         Move();
         currentMoveSpeed = rb.velocity.magnitude;
         currentTurnSpeed = rb.angularVelocity.magnitude;
-	}
+    }
 
     private bool CanMove()
-	{
-        return true;
-	}
-
+    {
+        return GameManager.instance.CurrentMenuState == MenuState.Game;
+    }
+    
     private void Move()
-	{
+    {
         if(CanMove())
-		{
+        {
             // Translational - Boat Accelerating/Decelerating
             if(Input.GetKey(KeyCode.W))
             {

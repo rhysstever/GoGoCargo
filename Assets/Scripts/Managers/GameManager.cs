@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MenuState
+{
+    MainMenu,
+    Game,
+    Pause,
+    GameEnd
+}
+
 public class GameManager : MonoBehaviour
 {
     #region Singleton Code
@@ -25,15 +33,35 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     public GameObject Player { get { return player; } }
 
+    private MenuState currentMenuState;
+    public MenuState CurrentMenuState { get { return currentMenuState; } }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        ChangeMenuState(MenuState.Game);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ChangeMenuState(MenuState newMenuState)
+    {
+        switch(newMenuState)
+        {
+            case MenuState.MainMenu:
+                break;
+            case MenuState.Game:
+                break;
+            case MenuState.Pause:
+                break;
+            case MenuState.GameEnd:
+                break;
+        }
+
+        currentMenuState = newMenuState;
     }
 }
