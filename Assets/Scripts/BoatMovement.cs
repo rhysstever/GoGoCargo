@@ -32,7 +32,8 @@ public class BoatMovement : MonoBehaviour
 
     private bool CanMove()
     {
-        return GameManager.instance.CurrentMenuState == MenuState.Game;
+        return GameManager.instance.CurrentMenuState == MenuState.Sailing
+            && GetComponent<Boat>().CurrentIsland == null;
     }
     
     private void Move()
@@ -78,6 +79,11 @@ public class BoatMovement : MonoBehaviour
                 float clampedAngularVelocity = Mathf.Clamp(rb.angularVelocity.magnitude, 0, maxAngularVelocity);
                 rb.angularVelocity = rb.angularVelocity.normalized * clampedAngularVelocity;
             }
+        } 
+        else
+        {
+            rb.velocity = Vector3.zero;
+            Camera.main.GetComponent<Rigidbody>().velocity = rb.velocity;
         }
     }
 }

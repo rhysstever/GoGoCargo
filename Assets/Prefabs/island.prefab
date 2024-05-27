@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scarceResources: 
   commonResources: 
+  interactDistance: 5

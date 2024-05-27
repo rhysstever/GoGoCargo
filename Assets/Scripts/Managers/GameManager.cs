@@ -5,7 +5,9 @@ using UnityEngine;
 public enum MenuState
 {
     MainMenu,
-    Game,
+    Controls,
+    Sailing,
+    Trading,
     Pause,
     GameEnd
 }
@@ -32,14 +34,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
     public GameObject Player { get { return player; } }
+    [SerializeField]
+    private GameObject islandsParent;
+    public GameObject IslandsParent { get { return islandsParent; } }
 
+    [SerializeField]
     private MenuState currentMenuState;
     public MenuState CurrentMenuState { get { return currentMenuState; } }
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeMenuState(MenuState.Game);
+        ChangeMenuState(MenuState.MainMenu);
     }
 
     // Update is called once per frame
@@ -54,7 +60,11 @@ public class GameManager : MonoBehaviour
         {
             case MenuState.MainMenu:
                 break;
-            case MenuState.Game:
+            case MenuState.Controls:
+                break;
+            case MenuState.Sailing:
+                break;
+            case MenuState.Trading:
                 break;
             case MenuState.Pause:
                 break;
@@ -63,5 +73,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentMenuState = newMenuState;
+        // Update UI
+        UIManager.instance.ChangeUIState(newMenuState);
     }
 }
