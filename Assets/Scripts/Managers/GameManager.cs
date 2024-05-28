@@ -42,10 +42,13 @@ public class GameManager : MonoBehaviour
     private MenuState currentMenuState;
     public MenuState CurrentMenuState { get { return currentMenuState; } }
 
+    public bool isBuying;
+
     // Start is called before the first frame update
     void Start()
     {
         ChangeMenuState(MenuState.MainMenu);
+        isBuying = true;
     }
 
     // Update is called once per frame
@@ -75,5 +78,14 @@ public class GameManager : MonoBehaviour
         currentMenuState = newMenuState;
         // Update UI
         UIManager.instance.ChangeUIState(newMenuState);
+    }
+
+    public void ResourceAction(ResourceType resource)
+    {
+        // Check availability
+
+        // Check cost
+
+        // Give/deduct to player
     }
 }

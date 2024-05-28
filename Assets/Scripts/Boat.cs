@@ -7,11 +7,18 @@ using UnityEngine;
 public class Boat : MonoBehaviour
 {
     private int health;
+    public int Health { get { return health; } }
+
     private int damage;
+    public int Damage { get { return damage; } }
+
     private float money;
+    public float Money { get { return money; } }
+
     private int totalCapacity;
-    private Dictionary<Resource, int> cargo;
-    [SerializeField]
+    private Dictionary<ResourceType, int> cargo;
+    public Dictionary<ResourceType, int> Cargo { get { return cargo; } }
+    
     private GameObject currentIsland;
     public GameObject CurrentIsland { get { return currentIsland; } }
 
@@ -40,11 +47,23 @@ public class Boat : MonoBehaviour
 
     private void SetupCargo()
     {
-        cargo = new Dictionary<Resource, int>();
-        foreach(Resource resource in Enum.GetValues(typeof(Resource)))
+        cargo = new Dictionary<ResourceType, int>();
+        foreach(ResourceType resource in Enum.GetValues(typeof(ResourceType)))
         {
             cargo.Add(resource, 0);
         }
+    }
+
+    public void RepairDamage(int amount)
+    {
+        health += amount;
+        UIManager.instance.UpdateGameText();
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        UIManager.instance.UpdateGameText();
     }
 
     public int TotalCargoCount()
@@ -57,22 +76,38 @@ public class Boat : MonoBehaviour
         return totalCapacity - TotalCargoCount();
     }
 
-    public void AddCargo(Resource resource, int amount)
+    public void AddCargo(ResourceType resource, int amount)
     {
         cargo[resource] += Mathf.Min(amount, TotalCargoSpace());
+        UIManager.instance.UpdateGameText();
     }
 
-    public void RemoveResource(Resource resource, int amount)
+    public void RemoveResource(ResourceType resource, int amount)
     {
         if (cargo.ContainsKey(resource))
+        {
             cargo[resource] = Mathf.Max(0, cargo[resource] - amount);
+            UIManager.instance.UpdateGameText();
+        }
+    }
+
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        UIManager.instance.UpdateGameText();
+    }
+
+    public void RemoveMoney(int amount)
+    {
+        money -= amount;
+        UIManager.instance.UpdateGameText();
     }
 
     private void EnterIsland()
     {
         foreach(Transform island in GameManager.instance.IslandsParent.transform)
         {
-            if(island.GetComponent<Island>().IsInteractable())
+            if(island.GetComponent<Island>().IsClose)
             {
                 // An island is close enough
                 currentIsland = island.gameObject;

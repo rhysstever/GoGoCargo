@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public enum Resource
+public enum ResourceType
 {
     Fish,
     Meat,
@@ -29,8 +30,11 @@ public class ResourceManager : MonoBehaviour
     }
     #endregion Singleton Code
 
-    private Dictionary<Resource, int> resourcePrices;
-    public Dictionary<Resource, int> ResourcePrices { get { return resourcePrices; } }
+    private Dictionary<ResourceType, Resource> resources;
+    public Dictionary<ResourceType, Resource> Resources { get { return resources; } }
+
+    [SerializeField]
+    private Texture fishImage, meatImage, stoneImage, woodImage;
 
     // Start is called before the first frame update
     void Start()
@@ -46,10 +50,10 @@ public class ResourceManager : MonoBehaviour
 
     private void SetupResourcePrices()
     {
-        resourcePrices = new Dictionary<Resource, int>();
-        resourcePrices.Add(Resource.Fish, 5);
-        resourcePrices.Add(Resource.Meat, 7);
-        resourcePrices.Add(Resource.Stone, 4);
-        resourcePrices.Add(Resource.Wood, 3);
+        resources = new Dictionary<ResourceType, Resource>();
+        resources.Add(ResourceType.Fish, new Resource("Fish", ResourceType.Fish, 5, fishImage));
+        resources.Add(ResourceType.Meat, new Resource("Meat", ResourceType.Meat, 7, meatImage));
+        resources.Add(ResourceType.Stone, new Resource("Stone", ResourceType.Stone, 4, stoneImage));
+        resources.Add(ResourceType.Wood, new Resource("Wood", ResourceType.Wood, 3, woodImage));
     }
 }

@@ -83,6 +83,7 @@ public class BoatMovement : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             Camera.main.GetComponent<Rigidbody>().velocity = rb.velocity;
         }
     }

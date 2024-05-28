@@ -5,23 +5,23 @@ using UnityEngine;
 public class Island : MonoBehaviour
 {
     [SerializeField]
-    private List<Resource> scarceResources, commonResources;
+    private List<ResourceType> scarceResources, commonResources;
     [SerializeField]
     private float interactDistance;
-    [SerializeField]
-    private float distToPlayer;
+    private bool isClose;
+    public bool IsClose { get { return isClose; } }
 
     // Start is called before the first frame update
     void Start()
     {
-        scarceResources = new List<Resource>();
-        commonResources = new List<Resource>();
+        scarceResources = new List<ResourceType>();
+        commonResources = new List<ResourceType>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        isClose = IsInteractable();
     }
 
     private void FixedUpdate()
@@ -31,22 +31,26 @@ public class Island : MonoBehaviour
 
     public bool IsInteractable()
     {
-        distToPlayer = Vector2.Distance(
+        float distToPlayer = Vector3.Distance(
             gameObject.transform.position,
             GameManager.instance.Player.transform.position);
-        return Vector2.Distance(
-            gameObject.transform.position, 
-            GameManager.instance.Player.transform.position) < interactDistance;
+        gameObject.transform.GetChild(0).gameObject.SetActive(distToPlayer < interactDistance);
+        return distToPlayer < interactDistance;
     }
 
-    public int GetIslandPrice(Resource resource)
+    public float GetIslandPrice(ResourceType resource, bool isBuying)
     {
+        float price = ResourceManager.instance.Resources[resource].BasePrice;
+
         if(scarceResources.IndexOf(resource) != -1)
-            return ResourceManager.instance.ResourcePrices[resource] * 2;
+            price *= 2.0f;
 
         if(commonResources.IndexOf(resource) != -1)
-            return ResourceManager.instance.ResourcePrices[resource] / 2;
+            price /= 2.0f;
 
-        return ResourceManager.instance.ResourcePrices[resource];
+        if(isBuying)
+            price *= 3.0f;
+
+        return price;
     }
 }
