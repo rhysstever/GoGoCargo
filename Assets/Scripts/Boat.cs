@@ -91,13 +91,13 @@ public class Boat : MonoBehaviour
         }
     }
 
-    public void AddMoney(int amount)
+    public void AddMoney(float amount)
     {
         money += amount;
         UIManager.instance.UpdateGameText();
     }
 
-    public void RemoveMoney(int amount)
+    public void RemoveMoney(float amount)
     {
         money -= amount;
         UIManager.instance.UpdateGameText();

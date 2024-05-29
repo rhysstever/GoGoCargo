@@ -498,11 +498,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372656770}
   m_CullTransparentMesh: 1
---- !u!1 &535812555 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6157916009389952819, guid: ab149adc6e938264e8dd70ca875cc75d, type: 3}
+--- !u!114 &535812557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2575584273669563766, guid: ab149adc6e938264e8dd70ca875cc75d, type: 3}
   m_PrefabInstance: {fileID: 9167712844176830522}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73a259b2f63a5045ad2718c56e8d51c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &558400590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3278,7 +3284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a16d81b3ef4ca4cb57b98bf0c2fdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 535812555}
+  player: {fileID: 535812557}
   islandsParent: {fileID: 1363931101}
   currentMenuState: 0
   isBuying: 0

@@ -32,12 +32,13 @@ public class GameManager : MonoBehaviour
     #endregion Singleton Code
 
     [SerializeField]
-    private GameObject player;
-    public GameObject Player { get { return player; } }
+    private Boat player;
+    public Boat Player { get { return player; } }
     [SerializeField]
     private GameObject islandsParent;
     public GameObject IslandsParent { get { return islandsParent; } }
 
+    private Stack<MenuState> menus;
     [SerializeField]
     private MenuState currentMenuState;
     public MenuState CurrentMenuState { get { return currentMenuState; } }
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        menus = new Stack<MenuState>();
         ChangeMenuState(MenuState.MainMenu);
         isBuying = true;
     }
@@ -75,17 +77,48 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        currentMenuState = newMenuState;
+        menus.Push(newMenuState);
+        currentMenuState = menus.Peek();
         // Update UI
-        UIManager.instance.ChangeUIState(newMenuState);
+        UIManager.instance.ChangeUIState(currentMenuState);
     }
 
-    public void ResourceAction(ResourceType resource)
+    public void ResourceAction(ResourceType resource, int amount)
     {
         // Check availability
-
-        // Check cost
-
-        // Give/deduct to player
+        if(isBuying)
+        {
+            // BUYING GOODS FROM ISLAND
+            // Check player money vs island price
+            float buyPrice = player.CurrentIsland.GetComponent<Island>().GetIslandPrice(resource, isBuying);
+            if(player.Money >= buyPrice)
+            {
+                // Remove money from player
+                player.RemoveMoney(buyPrice * amount);
+                // Add resource to the player
+                player.AddCargo(resource, amount);
+            }
+            else
+            {
+                Debug.Log("No Sale! Not enough money to buy resource.");
+            }
+        } 
+        else
+        {
+            // SELLING GOODS TO ISLAND
+            // Check player cargo availabilty
+            if(player.Cargo[resource] > 0)
+            {
+                // Add money to player
+                float sellPrice = player.CurrentIsland.GetComponent<Island>().GetIslandPrice(resource, isBuying);
+                player.AddMoney(sellPrice * amount);
+                // Remove the resource from player
+                player.RemoveResource(resource, amount);
+            }
+            else
+            {
+                Debug.Log("No Sale! Trying to sell a resource you do not have.");
+            }
+        }
     }
 }

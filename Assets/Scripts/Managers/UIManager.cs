@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
                     break;
                 case MenuState.Trading:
                     GameManager.instance.ChangeMenuState(MenuState.Sailing);
-                    GameManager.instance.Player.GetComponent<Boat>().ExitIsland();
+                    GameManager.instance.Player.ExitIsland();
                     break;
                 case MenuState.Pause:
                     GameManager.instance.ChangeMenuState(MenuState.Sailing);
@@ -83,18 +83,18 @@ public class UIManager : MonoBehaviour
 
     public void ChangeUIState(MenuState menuState)
     {
-        for(int i = 0; i < canvas.transform.childCount; i++)
-            canvas.transform.GetChild(i).gameObject.SetActive(false);
-
         switch(menuState)
         {
             case MenuState.MainMenu:
+                ClearAllUI();
                 mainMenuUIParent.SetActive(true);
                 break;
             case MenuState.Controls:
+                ClearAllUI();
                 controlsUIParent.SetActive(true);
                 break;
             case MenuState.Sailing:
+                ClearAllUI();
                 sailingUIParent.SetActive(true);
                 break;
             case MenuState.Trading:
@@ -106,24 +106,29 @@ public class UIManager : MonoBehaviour
                 pauseUIParent.SetActive(true);
                 break;
             case MenuState.GameEnd:
+                ClearAllUI();
                 gameEndUIParent.SetActive(true);
                 break;
         }
     }
 
+    private void ClearAllUI()
+    {
+        for(int i = 0; i < canvas.transform.childCount; i++)
+            canvas.transform.GetChild(i).gameObject.SetActive(false);
+    }
+
     public void UpdateGameText()
     {
-        Boat boat = GameManager.instance.Player.GetComponent<Boat>();
+        healthText.text = "Health: " + GameManager.instance.Player.Health;
 
-        healthText.text = "Health: " + boat.Health;
-
-        moneyText.text = "Gold: " + boat.Money;
+        moneyText.text = "Gold: " + GameManager.instance.Player.Money;
 
         inventoryText.text = "";
-        foreach(ResourceType resource in boat.Cargo.Keys)
+        foreach(ResourceType resource in GameManager.instance.Player.Cargo.Keys)
         {
-            if(boat.Cargo[resource] > 0)
-                inventoryText.text += resource + ": " + boat.Cargo[resource] + "\n";
+            if(GameManager.instance.Player.Cargo[resource] > 0)
+                inventoryText.text += resource + ": " + GameManager.instance.Player.Cargo[resource] + "\n";
         }
     }
 
@@ -142,12 +147,12 @@ public class UIManager : MonoBehaviour
             Vector2 position = startingPos;
             position.y += yChange * resourceCount;
 
-            CreateResourceLine(resource, position, resourceCount);
+            CreateResourceLine(resource, position);
             resourceCount++;
         }
     }
 
-    private void CreateResourceLine(Resource resource, Vector2 position, int count)
+    private void CreateResourceLine(Resource resource, Vector2 position)
     {
         GameObject resourceLineUI = Instantiate(resourceLinePrefab, Vector2.zero, Quaternion.identity, resourceButtonsParent.transform);
         resourceLineUI.transform.localPosition = position;
@@ -155,11 +160,17 @@ public class UIManager : MonoBehaviour
 
         resourceLineUI.transform.GetComponentInChildren<RawImage>().texture = resource.Image;
         resourceLineUI.transform.GetChild(1).GetComponent<TMP_Text>().text = resource.Name;
-        resourceLineUI.transform.GetChild(2).GetComponent<TMP_Text>().text = GameManager.instance.Player.GetComponent<Boat>().Cargo[resource.Type].ToString();
+
+        // Only display quantity when selling
+        string quantity = "";
+        if(!GameManager.instance.isBuying)
+            quantity = GameManager.instance.Player.Cargo[resource.Type].ToString();
+        resourceLineUI.transform.GetChild(2).GetComponent<TMP_Text>().text = quantity;
+
         resourceLineUI.transform.GetChild(3).GetComponent<TMP_Text>().text =
-            GameManager.instance.Player.GetComponent<Boat>().CurrentIsland.GetComponent<Island>().GetIslandPrice(
+            GameManager.instance.Player.CurrentIsland.GetComponent<Island>().GetIslandPrice(
                 resource.Type, GameManager.instance.isBuying) + "g";
-        resourceLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.ResourceAction(resource.Type));
+        resourceLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.ResourceAction(resource.Type, 1));
     }
 
     private void ChangeTradingState(bool isBuying)
