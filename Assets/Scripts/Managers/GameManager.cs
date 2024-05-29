@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
                 player.AddMoney(sellPrice * amount);
                 // Remove the resource from player
                 player.RemoveResource(resource, amount);
+                UIManager.instance.DisplayTradingResourcesUI();
             }
             else
             {

@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
             case MenuState.Trading:
                 tradingUIParent.SetActive(true);
                 ChangeTradingState(true);
-                CreateLinesOfResources();
+                DisplayTradingResourcesUI();
                 break;
             case MenuState.Pause:
                 pauseUIParent.SetActive(true);
@@ -132,7 +132,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void CreateLinesOfResources()
+    public void DisplayTradingResourcesUI()
     {
         Vector2 startingPos = new Vector2(0.0f, 25.0f);
         float yChange = -50.0f;
@@ -188,7 +188,7 @@ public class UIManager : MonoBehaviour
                 buyButton.GetComponent<RawImage>().texture = unselectedButtonTexture;
                 sellButton.GetComponent<RawImage>().texture = selectedButtonTexture;
             }
-            CreateLinesOfResources();
+            DisplayTradingResourcesUI();
         }
     }
 }
