@@ -7,6 +7,8 @@ public class Island : MonoBehaviour
     [SerializeField]
     private List<ResourceType> scarceResources, commonResources;
     [SerializeField]
+    private GameObject indicator;
+    [SerializeField]
     private float interactDistance;
     private bool isClose;
     public bool IsClose { get { return isClose; } }
@@ -14,8 +16,7 @@ public class Island : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scarceResources = new List<ResourceType>();
-        commonResources = new List<ResourceType>();
+
     }
 
     // Update is called once per frame
@@ -34,7 +35,7 @@ public class Island : MonoBehaviour
         float distToPlayer = Vector3.Distance(
             gameObject.transform.position,
             GameManager.instance.Player.transform.position);
-        gameObject.transform.GetChild(0).gameObject.SetActive(distToPlayer < interactDistance);
+        indicator.SetActive(distToPlayer < interactDistance);
         return distToPlayer < interactDistance;
     }
 
