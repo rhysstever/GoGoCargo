@@ -16,6 +16,7 @@ public class Boat : MonoBehaviour
     public float Money { get { return money; } }
 
     private int totalCapacity;
+    public int TotalCapacity { get { return totalCapacity; } }
     private Dictionary<ResourceType, int> cargo;
     public Dictionary<ResourceType, int> Cargo { get { return cargo; } }
     
@@ -57,13 +58,13 @@ public class Boat : MonoBehaviour
     public void RepairDamage(int amount)
     {
         health += amount;
-        UIManager.instance.UpdateGameText();
+        UIManager.instance.UpdatePlayerText();
     }
 
     public void TakeDamage(int amount)
     {
         health -= amount;
-        UIManager.instance.UpdateGameText();
+        UIManager.instance.UpdatePlayerText();
     }
 
     public int TotalCargoCount()
@@ -79,7 +80,7 @@ public class Boat : MonoBehaviour
     public void AddCargo(ResourceType resource, int amount)
     {
         cargo[resource] += Mathf.Min(amount, TotalCargoSpace());
-        UIManager.instance.UpdateGameText();
+        UIManager.instance.UpdatePlayerText();
     }
 
     public void RemoveResource(ResourceType resource, int amount)
@@ -87,20 +88,20 @@ public class Boat : MonoBehaviour
         if (cargo.ContainsKey(resource))
         {
             cargo[resource] = Mathf.Max(0, cargo[resource] - amount);
-            UIManager.instance.UpdateGameText();
+            UIManager.instance.UpdatePlayerText();
         }
     }
 
     public void AddMoney(float amount)
     {
         money += amount;
-        UIManager.instance.UpdateGameText();
+        UIManager.instance.UpdatePlayerText();
     }
 
     public void RemoveMoney(float amount)
     {
         money -= amount;
-        UIManager.instance.UpdateGameText();
+        UIManager.instance.UpdatePlayerText();
     }
 
     private void EnterIsland()

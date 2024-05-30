@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         SetupButtons();
-        UpdateGameText();
+        UpdatePlayerText();
     }
 
     // Update is called once per frame
@@ -118,17 +118,16 @@ public class UIManager : MonoBehaviour
             canvas.transform.GetChild(i).gameObject.SetActive(false);
     }
 
-    public void UpdateGameText()
+    public void UpdatePlayerText()
     {
-        healthText.text = "Health: " + GameManager.instance.Player.Health;
+        healthText.text = string.Format("Health: {0}", GameManager.instance.Player.Health);
+        moneyText.text = string.Format("Gold: {0}", GameManager.instance.Player.Money);
+        inventoryText.text = string.Format("Cargo: {0}/{1}\n", GameManager.instance.Player.TotalCargoCount(), GameManager.instance.Player.TotalCapacity);
 
-        moneyText.text = "Gold: " + GameManager.instance.Player.Money;
-
-        inventoryText.text = "";
         foreach(ResourceType resource in GameManager.instance.Player.Cargo.Keys)
         {
             if(GameManager.instance.Player.Cargo[resource] > 0)
-                inventoryText.text += resource + ": " + GameManager.instance.Player.Cargo[resource] + "\n";
+                inventoryText.text += string.Format("\n{0}: {1}", resource, GameManager.instance.Player.Cargo[resource]);
         }
     }
 
