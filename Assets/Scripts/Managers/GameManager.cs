@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         {
             // BUYING GOODS FROM ISLAND
             // Check player money vs island price
-            float buyPrice = player.CurrentIsland.GetComponent<Island>().GetIslandPrice(resource, isBuying);
+            float buyPrice = player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(resource, isBuying);
             if(player.Money >= buyPrice)
             {
                 // Remove money from player
@@ -110,11 +110,11 @@ public class GameManager : MonoBehaviour
             if(player.Cargo[resource] > 0)
             {
                 // Add money to player
-                float sellPrice = player.CurrentIsland.GetComponent<Island>().GetIslandPrice(resource, isBuying);
+                float sellPrice = player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(resource, isBuying);
                 player.AddMoney(sellPrice * amount);
                 // Remove the resource from player
                 player.RemoveResource(resource, amount);
-                UIManager.instance.DisplayTradingResourcesUI();
+                UIManager.instance.DisplayTradingPostUI();
             }
             else
             {

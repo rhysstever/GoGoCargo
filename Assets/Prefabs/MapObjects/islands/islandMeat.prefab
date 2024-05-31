@@ -49,9 +49,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8818590928235121636}
   - component: {fileID: 3093741261347648496}
-  - component: {fileID: 6368476760910012380}
+  - component: {fileID: -5935676551904736170}
   m_Layer: 0
-  m_Name: islandMeatWood
+  m_Name: islandMeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 1.5, z: 3}
   m_Center: {x: 0, y: 0.45, z: 0}
---- !u!114 &6368476760910012380
+--- !u!114 &-5935676551904736170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3408858310079566799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a24a7026f42544f98a41a4db1a0aee, type: 3}
+  m_Script: {fileID: 11500000, guid: b67ac3984314c874188da1f212dd6511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scarceResources: 02000000
-  commonResources: 01000000
   indicator: {fileID: 9111820965902817828}
   interactDistance: 10
+  scarceResources: 0200000000000000
+  commonResources: 01000000
 --- !u!1 &6330472203129886276
 GameObject:
   m_ObjectHideFlags: 0

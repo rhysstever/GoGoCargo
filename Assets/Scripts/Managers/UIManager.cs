@@ -100,7 +100,10 @@ public class UIManager : MonoBehaviour
             case MenuState.Trading:
                 tradingUIParent.SetActive(true);
                 ChangeTradingState(true);
-                DisplayTradingResourcesUI();
+                if(GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>() != null)
+                    DisplayTradingPostUI();
+                else if(GameManager.instance.Player.CurrentIsland.GetComponent<Shipyard>() != null)
+                    DisplayShipyardUI();
                 break;
             case MenuState.Pause:
                 pauseUIParent.SetActive(true);
@@ -131,7 +134,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void DisplayTradingResourcesUI()
+    public void DisplayTradingPostUI()
     {
         Vector2 startingPos = new Vector2(0.0f, 25.0f);
         float yChange = -50.0f;
@@ -167,9 +170,14 @@ public class UIManager : MonoBehaviour
         resourceLineUI.transform.GetChild(2).GetComponent<TMP_Text>().text = quantity;
 
         resourceLineUI.transform.GetChild(3).GetComponent<TMP_Text>().text =
-            GameManager.instance.Player.CurrentIsland.GetComponent<Island>().GetIslandPrice(
+            GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(
                 resource.Type, GameManager.instance.isBuying) + "g";
         resourceLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.ResourceAction(resource.Type, 1));
+    }
+
+    public void DisplayShipyardUI()
+    {
+
     }
 
     private void ChangeTradingState(bool isBuying)
@@ -187,7 +195,7 @@ public class UIManager : MonoBehaviour
                 buyButton.GetComponent<RawImage>().texture = unselectedButtonTexture;
                 sellButton.GetComponent<RawImage>().texture = selectedButtonTexture;
             }
-            DisplayTradingResourcesUI();
+            DisplayTradingPostUI();
         }
     }
 }

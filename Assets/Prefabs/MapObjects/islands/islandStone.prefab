@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8818590928235121636}
   - component: {fileID: 3093741261347648496}
-  - component: {fileID: 6368476760910012380}
+  - component: {fileID: -6236506728204220730}
   m_Layer: 0
   m_Name: islandStone
   m_TagString: Untagged
@@ -57,7 +57,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 1.5, z: 3}
   m_Center: {x: 0, y: 0.45, z: 0}
---- !u!114 &6368476760910012380
+--- !u!114 &-6236506728204220730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,13 +66,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3408858310079566799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a24a7026f42544f98a41a4db1a0aee, type: 3}
+  m_Script: {fileID: 11500000, guid: b67ac3984314c874188da1f212dd6511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scarceResources: 030000000000000001000000
-  commonResources: 02000000
   indicator: {fileID: 228290959219553234}
   interactDistance: 10
+  scarceResources: 000000000100000003000000
+  commonResources: 02000000
 --- !u!1 &4925540343869102355
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,8 +5,6 @@ using UnityEngine;
 public class Island : MonoBehaviour
 {
     [SerializeField]
-    private List<ResourceType> scarceResources, commonResources;
-    [SerializeField]
     private GameObject indicator;
     [SerializeField]
     private float interactDistance;
@@ -37,21 +35,5 @@ public class Island : MonoBehaviour
             GameManager.instance.Player.transform.position);
         indicator.SetActive(distToPlayer < interactDistance);
         return distToPlayer < interactDistance;
-    }
-
-    public float GetIslandPrice(ResourceType resource, bool isBuying)
-    {
-        float price = ResourceManager.instance.Resources[resource].BasePrice;
-
-        if(scarceResources.IndexOf(resource) != -1)
-            price *= 2.0f;
-
-        if(commonResources.IndexOf(resource) != -1)
-            price /= 2.0f;
-
-        if(isBuying)
-            price *= 3.0f;
-
-        return price;
     }
 }
