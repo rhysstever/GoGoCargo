@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
-  turnSpeed: 1
-  maxVelocity: 1.5
+  turnSpeed: 2
+  maxVelocity: 3
   maxAngularVelocity: 0.25
   currentMoveSpeed: 0
   currentTurnSpeed: 0
