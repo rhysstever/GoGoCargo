@@ -35,6 +35,9 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField]
     private Texture fishImage, meatImage, stoneImage, woodImage;
+    [SerializeField]
+    private List<GameObject> boats;
+    public List<GameObject> Boats { get { return boats; } }
 
     // Start is called before the first frame update
     void Start()

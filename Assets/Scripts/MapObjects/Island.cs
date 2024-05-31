@@ -12,18 +12,18 @@ public class Island : MonoBehaviour
     public bool IsClose { get { return isClose; } }
 
     // Start is called before the first frame update
-    void Start()
+    internal void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    internal void Update()
     {
         isClose = IsInteractable();
     }
 
-    private void FixedUpdate()
+    internal void FixedUpdate()
     {
         
     }

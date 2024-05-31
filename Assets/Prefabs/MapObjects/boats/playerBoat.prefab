@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5910999664582598512}
   - component: {fileID: 1705688770277318914}
   - component: {fileID: 6011461957705173070}
+  - component: {fileID: 8539780993307860309}
   m_Layer: 0
   m_Name: playerBoat
   m_TagString: Untagged
@@ -159,9 +160,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1c0c56a40c80d498b2e3c180211303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8539780993307860309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983402070653089854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc6a79ab76589a4ba5ad95d15f3e098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boatName: Tow Boat 1
+  image: {fileID: 2800000, guid: 1311cfc52ce525a4fabef7f4c03ba183, type: 3}
+  priceToUpgrade: 20
   moveSpeed: 20
   turnSpeed: 2
   maxVelocity: 3
   maxAngularVelocity: 0.25
-  currentMoveSpeed: 0
-  currentTurnSpeed: 0

@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     private TMP_Text healthText, moneyText, inventoryText;
 
     [SerializeField]    // Trading UI
-    private GameObject resourceButtonsParent, resourceLinePrefab;
+    private GameObject resourceButtonsParent, resourceLinePrefab, shipUpgradeLinePrefab;
     [SerializeField]    // Trading Buttons
     private Button buyButton, sellButton;
     [SerializeField]    // Trading Button Images
@@ -100,10 +100,7 @@ public class UIManager : MonoBehaviour
             case MenuState.Trading:
                 tradingUIParent.SetActive(true);
                 ChangeTradingState(true);
-                if(GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>() != null)
-                    DisplayTradingPostUI();
-                else if(GameManager.instance.Player.CurrentIsland.GetComponent<Shipyard>() != null)
-                    DisplayShipyardUI();
+                DisplayTradingUI();
                 break;
             case MenuState.Pause:
                 pauseUIParent.SetActive(true);
@@ -134,7 +131,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void DisplayTradingPostUI()
+    private void ChangeTradingState(bool isBuying)
+    {
+        if(isBuying != GameManager.instance.isBuying)
+        {
+            GameManager.instance.isBuying = isBuying;
+            if(isBuying)
+            {
+                buyButton.GetComponent<RawImage>().texture = selectedButtonTexture;
+                sellButton.GetComponent<RawImage>().texture = unselectedButtonTexture;
+            }
+            else
+            {
+                buyButton.GetComponent<RawImage>().texture = unselectedButtonTexture;
+                sellButton.GetComponent<RawImage>().texture = selectedButtonTexture;
+            }
+            DisplayTradingUI();
+        }
+    }
+
+    public void DisplayTradingUI()
     {
         Vector2 startingPos = new Vector2(0.0f, 25.0f);
         float yChange = -50.0f;
@@ -144,13 +160,29 @@ public class UIManager : MonoBehaviour
             Destroy(resourceButtonsParent.transform.GetChild(i).gameObject);
 
         int resourceCount = 0;
-        foreach(Resource resource in ResourceManager.instance.Resources.Values)
-        {
-            Vector2 position = startingPos;
-            position.y += yChange * resourceCount;
 
-            CreateResourceLine(resource, position);
-            resourceCount++;
+
+        if(GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>() != null)
+        {
+            foreach(Resource resource in ResourceManager.instance.Resources.Values)
+            {
+                Vector2 position = startingPos;
+                position.y += yChange * resourceCount;
+
+                CreateResourceLine(resource, position);
+                resourceCount++;
+            }
+        }
+        else if(GameManager.instance.Player.CurrentIsland.GetComponent<Shipyard>() != null)
+        {
+            foreach(GameObject boat in ResourceManager.instance.Boats)
+            {
+                Vector2 position = startingPos;
+                position.y += yChange * resourceCount;
+
+                CreateShipUpgradeLine(boat, position);
+                resourceCount++;
+            }
         }
     }
 
@@ -175,27 +207,17 @@ public class UIManager : MonoBehaviour
         resourceLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.ResourceAction(resource.Type, 1));
     }
 
-    public void DisplayShipyardUI()
+    public void CreateShipUpgradeLine(GameObject boat, Vector2 position)
     {
+        GameObject shipUpgradeLineUI = Instantiate(shipUpgradeLinePrefab, Vector2.zero, Quaternion.identity, resourceButtonsParent.transform);
+        shipUpgradeLineUI.transform.localPosition = position;
 
-    }
+        BoatStats stats = boat.GetComponent<BoatStats>();
 
-    private void ChangeTradingState(bool isBuying)
-    {
-        if(isBuying != GameManager.instance.isBuying)
-        {
-            GameManager.instance.isBuying = isBuying;
-            if(isBuying)
-            {
-                buyButton.GetComponent<RawImage>().texture = selectedButtonTexture;
-                sellButton.GetComponent<RawImage>().texture = unselectedButtonTexture;
-            }
-            else
-            {
-                buyButton.GetComponent<RawImage>().texture = unselectedButtonTexture;
-                sellButton.GetComponent<RawImage>().texture = selectedButtonTexture;
-            }
-            DisplayTradingPostUI();
-        }
+        shipUpgradeLineUI.transform.GetComponentInChildren<RawImage>().texture = stats.Image;
+        shipUpgradeLineUI.transform.GetChild(1).GetComponent<TMP_Text>().text = stats.BoatName;
+        shipUpgradeLineUI.transform.GetChild(2).GetComponent<TMP_Text>().text = string.Format("{0}g", stats.PriceToUpgrade);
+
+        shipUpgradeLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.UpgradeBoat(boat));
     }
 }

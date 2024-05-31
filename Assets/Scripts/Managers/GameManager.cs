@@ -114,12 +114,17 @@ public class GameManager : MonoBehaviour
                 player.AddMoney(sellPrice * amount);
                 // Remove the resource from player
                 player.RemoveResource(resource, amount);
-                UIManager.instance.DisplayTradingPostUI();
+                UIManager.instance.DisplayTradingUI();
             }
             else
             {
                 Debug.Log("No Sale! Trying to sell a resource you do not have.");
             }
         }
+    }
+
+    public void UpgradeBoat(GameObject boat)
+    {
+
     }
 }

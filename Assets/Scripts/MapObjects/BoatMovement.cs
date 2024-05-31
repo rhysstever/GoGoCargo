@@ -5,16 +5,17 @@ using UnityEngine;
 public class BoatMovement : MonoBehaviour
 {
     private Rigidbody rb;
-
-    [SerializeField]
     private float moveSpeed, turnSpeed, maxVelocity, maxAngularVelocity;
-
-    public float currentMoveSpeed, currentTurnSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        BoatStats stats = GetComponent<BoatStats>();
+        moveSpeed = stats.MoveSpeed;
+        turnSpeed = stats.TurnSpeed;
+        maxVelocity = stats.MaxVelocity;
+        maxAngularVelocity = stats.MaxAngularVelocity;
     }
 
     // Update is called once per frame
@@ -26,8 +27,6 @@ public class BoatMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        currentMoveSpeed = rb.velocity.magnitude;
-        currentTurnSpeed = rb.angularVelocity.magnitude;
     }
 
     private bool CanMove()
