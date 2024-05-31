@@ -86,48 +86,5 @@ public class BoatMovement : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             Camera.main.GetComponent<Rigidbody>().velocity = rb.velocity;
         }
-
-        CheckForWrapping();
-    }
-
-    private void CheckForWrapping()
-    {
-        float wrappingBounds = IslandManager.instance.GetBounds();
-
-        if(gameObject.transform.position.x > wrappingBounds ||
-            gameObject.transform.position.x < -wrappingBounds)
-        {
-            // Move player
-            gameObject.transform.position = new Vector3(
-                -gameObject.transform.position.x, 
-                gameObject.transform.position.y, 
-                gameObject.transform.position.z
-                );
-
-            // Move camera
-            Camera.main.transform.position = new Vector3(
-                -Camera.main.transform.position.x,
-                Camera.main.transform.position.y,
-                Camera.main.transform.position.z
-                );
-        }
-
-        if(gameObject.transform.position.z > wrappingBounds || 
-            gameObject.transform.position.z < -wrappingBounds)
-        {
-            // Move player
-            gameObject.transform.position = new Vector3(
-                gameObject.transform.position.x,
-                gameObject.transform.position.y,
-                -gameObject.transform.position.z
-                );
-
-            // Move camera
-            Camera.main.transform.position = new Vector3(
-                Camera.main.transform.position.x,
-                Camera.main.transform.position.y,
-                -Camera.main.transform.position.z
-                );
-        }
     }
 }
