@@ -11,10 +11,13 @@ public class BoatStats : MonoBehaviour
     private Texture image;
     public Texture Image { get { return image; } }
     [SerializeField]
-    private float priceToUpgrade;
-    public float PriceToUpgrade { get { return priceToUpgrade; } }
+    private int health, damage, capacity;
+    public int Health { get { return health; } }
+    public int Damage { get { return damage; } }
+    public int Capacity { get { return capacity; } }
     [SerializeField]
-    private float moveSpeed, turnSpeed, maxVelocity, maxAngularVelocity;
+    private float priceToUpgrade, moveSpeed, turnSpeed, maxVelocity, maxAngularVelocity;
+    public float PriceToUpgrade { get { return priceToUpgrade; } }
     public float MoveSpeed { get { return moveSpeed; } }
     public float TurnSpeed { get { return turnSpeed; } }
     public float MaxVelocity { get { return maxVelocity; } }

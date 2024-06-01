@@ -6,32 +6,34 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    private int health;
+    private int health, damage, totalCapacity;
     public int Health { get { return health; } }
-
-    private int damage;
     public int Damage { get { return damage; } }
+    public int TotalCapacity { get { return totalCapacity; } }
 
     private float money;
     public float Money { get { return money; } }
 
-    private int totalCapacity;
-    public int TotalCapacity { get { return totalCapacity; } }
     private Dictionary<ResourceType, int> cargo;
     public Dictionary<ResourceType, int> Cargo { get { return cargo; } }
-    
+
     private GameObject currentIsland;
     public GameObject CurrentIsland { get { return currentIsland; } }
+
+    private void Awake()
+    {
+        SetupCargo();
+        health = GetComponent<BoatStats>().Health;
+        damage = GetComponent<BoatStats>().Damage;
+        totalCapacity = GetComponent<BoatStats>().Capacity;
+        money = 100.0f;
+        currentIsland = null;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 10;
-        damage = 1;
-        money = 100.0f;
-        totalCapacity = 100;
-        SetupCargo();
-        currentIsland = null;
+
     }
 
     // Update is called once per frame
@@ -67,6 +69,18 @@ public class Boat : MonoBehaviour
         UIManager.instance.UpdatePlayerText();
     }
 
+    public void AddMoney(float amount)
+    {
+        money += amount;
+        UIManager.instance.UpdatePlayerText();
+    }
+
+    public void RemoveMoney(float amount)
+    {
+        money -= amount;
+        UIManager.instance.UpdatePlayerText();
+    }
+
     public int TotalCargoCount()
     {
         return cargo.Values.Sum();
@@ -92,19 +106,7 @@ public class Boat : MonoBehaviour
         }
     }
 
-    public void AddMoney(float amount)
-    {
-        money += amount;
-        UIManager.instance.UpdatePlayerText();
-    }
-
-    public void RemoveMoney(float amount)
-    {
-        money -= amount;
-        UIManager.instance.UpdatePlayerText();
-    }
-
-    private void EnterIsland()
+    public void EnterIsland()
     {
         foreach(Transform island in GameManager.instance.IslandsParent.transform)
         {

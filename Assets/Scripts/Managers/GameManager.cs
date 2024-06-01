@@ -125,6 +125,23 @@ public class GameManager : MonoBehaviour
 
     public void UpgradeBoat(GameObject boat)
     {
+        Vector3 position = player.transform.position;
+        Quaternion rotation = player.transform.rotation;
+        float money = player.Money;
+        Dictionary<ResourceType, int> cargo = player.Cargo;
+        
+        GameObject newPlayerBoat = Instantiate(boat, position, rotation);
+        Boat newBoat = newPlayerBoat.GetComponent<Boat>();
 
+        Destroy(player.gameObject);
+        player = newBoat;
+
+        // Retain money, cargo, and the current island
+        player.RemoveMoney(player.Money - money);
+        foreach(ResourceType resource in cargo.Keys)
+            player.AddCargo(resource, cargo[resource]);
+        player.EnterIsland();
+
+        UIManager.instance.UpdatePlayerText();
     }
 }

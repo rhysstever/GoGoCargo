@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]    // Trading UI
     private GameObject resourceButtonsParent, resourceLinePrefab, shipUpgradeLinePrefab;
+    [SerializeField]    // Trading Text
+    private TMP_Text tradingHeader;
     [SerializeField]    // Trading Buttons
     private Button buyButton, sellButton;
     [SerializeField]    // Trading Button Images
@@ -164,6 +166,9 @@ public class UIManager : MonoBehaviour
 
         if(GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>() != null)
         {
+            tradingHeader.text = "Trading Offers";
+            buyButton.gameObject.SetActive(true);
+            sellButton.gameObject.SetActive(true);
             foreach(Resource resource in ResourceManager.instance.Resources.Values)
             {
                 Vector2 position = startingPos;
@@ -175,6 +180,9 @@ public class UIManager : MonoBehaviour
         }
         else if(GameManager.instance.Player.CurrentIsland.GetComponent<Shipyard>() != null)
         {
+            tradingHeader.text = "Upgrades";
+            buyButton.gameObject.SetActive(false);
+            sellButton.gameObject.SetActive(false);
             foreach(GameObject boat in ResourceManager.instance.Boats)
             {
                 Vector2 position = startingPos;
