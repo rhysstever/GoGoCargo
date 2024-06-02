@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6011461957705173070}
   - component: {fileID: 8539780993307860309}
   m_Layer: 0
-  m_Name: playerBoat
+  m_Name: 1 - TowBoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,10 +174,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boatName: Tow Boat 1
   image: {fileID: 2800000, guid: 1311cfc52ce525a4fabef7f4c03ba183, type: 3}
-  health: 10
+  health: 20
   damage: 0
-  capacity: 10
-  priceToUpgrade: 20
+  capacity: 20
+  priceToUpgrade: 150
   moveSpeed: 20
   turnSpeed: 2
   maxVelocity: 3

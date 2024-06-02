@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
     {
         healthText.text = string.Format("Health: {0}", GameManager.instance.Player.Health);
         moneyText.text = string.Format("Gold: {0}", GameManager.instance.Player.Money);
-        inventoryText.text = string.Format("Cargo: {0}/{1}\n", GameManager.instance.Player.TotalCargoCount(), GameManager.instance.Player.TotalCapacity);
+        inventoryText.text = string.Format("Cargo: {0}/{1}\n", GameManager.instance.Player.CargoCount(), GameManager.instance.Player.Capacity);
 
         foreach(ResourceType resource in GameManager.instance.Player.Cargo.Keys)
         {

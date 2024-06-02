@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    private int health, damage, totalCapacity;
+    private int health, damage, capacity;
     public int Health { get { return health; } }
     public int Damage { get { return damage; } }
-    public int TotalCapacity { get { return totalCapacity; } }
+    public int Capacity { get { return capacity; } }
 
     private float money;
     public float Money { get { return money; } }
@@ -25,7 +25,7 @@ public class Boat : MonoBehaviour
         SetupCargo();
         health = GetComponent<BoatStats>().Health;
         damage = GetComponent<BoatStats>().Damage;
-        totalCapacity = GetComponent<BoatStats>().Capacity;
+        capacity = GetComponent<BoatStats>().Capacity;
         money = 100.0f;
         currentIsland = null;
     }
@@ -81,19 +81,19 @@ public class Boat : MonoBehaviour
         UIManager.instance.UpdatePlayerText();
     }
 
-    public int TotalCargoCount()
+    public int CargoCount()
     {
         return cargo.Values.Sum();
     }
 
-    public int TotalCargoSpace()
+    public int CargoSpace()
     {
-        return totalCapacity - TotalCargoCount();
+        return capacity - CargoCount();
     }
 
     public void AddCargo(ResourceType resource, int amount)
     {
-        cargo[resource] += Mathf.Min(amount, TotalCargoSpace());
+        cargo[resource] += Mathf.Min(amount, CargoSpace());
         UIManager.instance.UpdatePlayerText();
     }
 

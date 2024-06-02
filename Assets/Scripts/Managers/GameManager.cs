@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(player == null)
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Boat>();
         menus = new Stack<MenuState>();
         ChangeMenuState(MenuState.MainMenu);
         isBuying = true;
@@ -89,18 +91,26 @@ public class GameManager : MonoBehaviour
         if(isBuying)
         {
             // BUYING GOODS FROM ISLAND
-            // Check player money vs island price
-            float buyPrice = player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(resource, isBuying);
-            if(player.Money >= buyPrice)
+            // Check if player has room in cargo
+            if(player.CargoSpace() >= amount)
             {
-                // Remove money from player
-                player.RemoveMoney(buyPrice * amount);
-                // Add resource to the player
-                player.AddCargo(resource, amount);
+                // Check player money vs island price
+                float buyPrice = player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(resource, isBuying);
+                if(player.Money >= buyPrice)
+                {
+                    // Remove money from player
+                    player.RemoveMoney(buyPrice * amount);
+                    // Add resource to the player
+                    player.AddCargo(resource, amount);
+                }
+                else
+                {
+                    Debug.Log("No Sale! Not enough money to buy resource.");
+                }
             }
             else
             {
-                Debug.Log("No Sale! Not enough money to buy resource.");
+                Debug.Log("No Sale! Not enough space aboard.");
             }
         } 
         else
@@ -131,6 +141,7 @@ public class GameManager : MonoBehaviour
         Dictionary<ResourceType, int> cargo = player.Cargo;
         
         GameObject newPlayerBoat = Instantiate(boat, position, rotation);
+        newPlayerBoat.name = string.Format("Player {0}", newPlayerBoat.GetComponent<BoatStats>().BoatName);
         Boat newBoat = newPlayerBoat.GetComponent<Boat>();
 
         Destroy(player.gameObject);
