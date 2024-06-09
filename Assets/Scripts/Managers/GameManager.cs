@@ -7,7 +7,6 @@ public enum MenuState
     MainMenu,
     Controls,
     Sailing,
-    Trading,
     Pause,
     GameEnd
 }
@@ -32,9 +31,6 @@ public class GameManager : MonoBehaviour
     #endregion Singleton Code
 
     [SerializeField]
-    private Boat player;
-    public Boat Player { get { return player; } }
-    [SerializeField]
     private GameObject islandsParent;
     public GameObject IslandsParent { get { return islandsParent; } }
 
@@ -43,16 +39,11 @@ public class GameManager : MonoBehaviour
     private MenuState currentMenuState;
     public MenuState CurrentMenuState { get { return currentMenuState; } }
 
-    public bool isBuying;
-
     // Start is called before the first frame update
     void Start()
     {
-        if(player == null)
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Boat>();
         menus = new Stack<MenuState>();
         ChangeMenuState(MenuState.MainMenu);
-        isBuying = true;
     }
 
     // Update is called once per frame
@@ -71,8 +62,6 @@ public class GameManager : MonoBehaviour
                 break;
             case MenuState.Sailing:
                 break;
-            case MenuState.Trading:
-                break;
             case MenuState.Pause:
                 break;
             case MenuState.GameEnd:
@@ -82,77 +71,8 @@ public class GameManager : MonoBehaviour
         menus.Push(newMenuState);
         currentMenuState = menus.Peek();
         // Update UI
-        UIManager.instance.ChangeUIState(currentMenuState);
-    }
-
-    public void ResourceAction(ResourceType resource, int amount)
-    {
-        // Check availability
-        if(isBuying)
-        {
-            // BUYING GOODS FROM ISLAND
-            // Check if player has room in cargo
-            if(player.CargoSpace() >= amount)
-            {
-                // Check player money vs island price
-                float buyPrice = player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(resource, isBuying);
-                if(player.Money >= buyPrice)
-                {
-                    // Remove money from player
-                    player.RemoveMoney(buyPrice * amount);
-                    // Add resource to the player
-                    player.AddCargo(resource, amount);
-                }
-                else
-                {
-                    Debug.Log("No Sale! Not enough money to buy resource.");
-                }
-            }
-            else
-            {
-                Debug.Log("No Sale! Not enough space aboard.");
-            }
-        } 
-        else
-        {
-            // SELLING GOODS TO ISLAND
-            // Check player cargo availabilty
-            if(player.Cargo[resource] > 0)
-            {
-                // Add money to player
-                float sellPrice = player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(resource, isBuying);
-                player.AddMoney(sellPrice * amount);
-                // Remove the resource from player
-                player.RemoveResource(resource, amount);
-                UIManager.instance.DisplayTradingUI();
-            }
-            else
-            {
-                Debug.Log("No Sale! Trying to sell a resource you do not have.");
-            }
-        }
-    }
-
-    public void UpgradeBoat(GameObject boat)
-    {
-        Vector3 position = player.transform.position;
-        Quaternion rotation = player.transform.rotation;
-        float money = player.Money;
-        Dictionary<ResourceType, int> cargo = player.Cargo;
-        
-        GameObject newPlayerBoat = Instantiate(boat, position, rotation);
-        newPlayerBoat.name = string.Format("Player {0}", newPlayerBoat.GetComponent<BoatStats>().BoatName);
-        Boat newBoat = newPlayerBoat.GetComponent<Boat>();
-
-        Destroy(player.gameObject);
-        player = newBoat;
-
-        // Retain money, cargo, and the current island
-        player.RemoveMoney(player.Money - money);
-        foreach(ResourceType resource in cargo.Keys)
-            player.AddCargo(resource, cargo[resource]);
-        player.EnterIsland();
-
-        UIManager.instance.UpdatePlayerText();
+        UIManager.instance.ChangeUIState(
+            currentMenuState,
+            PlayerManager.instance.CurrentPlayerState);
     }
 }

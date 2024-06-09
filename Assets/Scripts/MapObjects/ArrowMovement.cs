@@ -21,8 +21,7 @@ public class ArrowMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(GameManager.instance.CurrentMenuState == MenuState.Sailing ||
-            GameManager.instance.CurrentMenuState == MenuState.Trading)
+        if(GameManager.instance.CurrentMenuState == MenuState.Sailing)
         {
             BobAndRotate();
         }

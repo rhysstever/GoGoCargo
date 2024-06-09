@@ -32,7 +32,7 @@ public class Island : MonoBehaviour
     {
         float distToPlayer = Vector3.Distance(
             gameObject.transform.position,
-            GameManager.instance.Player.transform.position);
+            PlayerManager.instance.Player.transform.position);
         indicator.SetActive(distToPlayer < interactDistance);
         return distToPlayer < interactDistance;
     }

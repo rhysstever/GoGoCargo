@@ -59,11 +59,16 @@ public class UIManager : MonoBehaviour
             switch(GameManager.instance.CurrentMenuState)
             {
                 case MenuState.Sailing:
-                    GameManager.instance.ChangeMenuState(MenuState.Pause);
-                    break;
-                case MenuState.Trading:
-                    GameManager.instance.ChangeMenuState(MenuState.Sailing);
-                    GameManager.instance.Player.ExitIsland();
+                    switch(PlayerManager.instance.CurrentPlayerState)
+                    {
+                        case PlayerState.Sailing:
+                            GameManager.instance.ChangeMenuState(MenuState.Pause);
+                            break;
+                        case PlayerState.Trading:
+                            PlayerManager.instance.ChangePlayerState(PlayerState.Sailing);
+                            PlayerManager.instance.Player.ExitIsland();
+                            break;
+                    }
                     break;
                 case MenuState.Pause:
                     GameManager.instance.ChangeMenuState(MenuState.Sailing);
@@ -83,7 +88,7 @@ public class UIManager : MonoBehaviour
         sellButton.onClick.AddListener(() => ChangeTradingState(false));
     }
 
-    public void ChangeUIState(MenuState menuState)
+    public void ChangeUIState(MenuState menuState, PlayerState playerState)
     {
         switch(menuState)
         {
@@ -96,13 +101,18 @@ public class UIManager : MonoBehaviour
                 controlsUIParent.SetActive(true);
                 break;
             case MenuState.Sailing:
-                ClearAllUI();
-                sailingUIParent.SetActive(true);
-                break;
-            case MenuState.Trading:
-                tradingUIParent.SetActive(true);
-                ChangeTradingState(true);
-                DisplayTradingUI();
+                switch(playerState)
+                {
+                    case PlayerState.Sailing:
+                        ClearAllUI();
+                        sailingUIParent.SetActive(true);
+                        break;
+                    case PlayerState.Trading:
+                        tradingUIParent.SetActive(true);
+                        ChangeTradingState(true);
+                        DisplayTradingUI();
+                        break;
+                }
                 break;
             case MenuState.Pause:
                 pauseUIParent.SetActive(true);
@@ -122,22 +132,25 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePlayerText()
     {
-        healthText.text = string.Format("Health: {0}", GameManager.instance.Player.Health);
-        moneyText.text = string.Format("Gold: {0}", GameManager.instance.Player.Money);
-        inventoryText.text = string.Format("Cargo: {0}/{1}\n", GameManager.instance.Player.CargoCount(), GameManager.instance.Player.Capacity);
+        healthText.text = string.Format("Health: {0}", PlayerManager.instance.Player.Health);
+        moneyText.text = string.Format("Gold: {0}", PlayerManager.instance.Money);
+        inventoryText.text = string.Format(
+            "Cargo: {0}/{1}\n", 
+            PlayerManager.instance.Player.CargoCount(), 
+            PlayerManager.instance.Player.Capacity);
 
-        foreach(ResourceType resource in GameManager.instance.Player.Cargo.Keys)
+        foreach(ResourceType resource in PlayerManager.instance.Player.Cargo.Keys)
         {
-            if(GameManager.instance.Player.Cargo[resource] > 0)
-                inventoryText.text += string.Format("\n{0}: {1}", resource, GameManager.instance.Player.Cargo[resource]);
+            if(PlayerManager.instance.Player.Cargo[resource] > 0)
+                inventoryText.text += string.Format("\n{0}: {1}", resource, PlayerManager.instance.Player.Cargo[resource]);
         }
     }
 
     private void ChangeTradingState(bool isBuying)
     {
-        if(isBuying != GameManager.instance.isBuying)
+        if(isBuying != PlayerManager.instance.isBuying)
         {
-            GameManager.instance.isBuying = isBuying;
+            PlayerManager.instance.isBuying = isBuying;
             if(isBuying)
             {
                 buyButton.GetComponent<RawImage>().texture = selectedButtonTexture;
@@ -164,7 +177,7 @@ public class UIManager : MonoBehaviour
         int resourceCount = 0;
 
 
-        if(GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>() != null)
+        if(PlayerManager.instance.Player.CurrentIsland.GetComponent<TradingPost>() != null)
         {
             tradingHeader.text = "Trading Offers";
             buyButton.gameObject.SetActive(true);
@@ -178,7 +191,7 @@ public class UIManager : MonoBehaviour
                 resourceCount++;
             }
         }
-        else if(GameManager.instance.Player.CurrentIsland.GetComponent<Shipyard>() != null)
+        else if(PlayerManager.instance.Player.CurrentIsland.GetComponent<Shipyard>() != null)
         {
             tradingHeader.text = "Upgrades";
             buyButton.gameObject.SetActive(false);
@@ -205,14 +218,14 @@ public class UIManager : MonoBehaviour
 
         // Only display quantity when selling
         string quantity = "";
-        if(!GameManager.instance.isBuying)
-            quantity = GameManager.instance.Player.Cargo[resource.Type].ToString();
+        if(!PlayerManager.instance.isBuying)
+            quantity = PlayerManager.instance.Player.Cargo[resource.Type].ToString();
         resourceLineUI.transform.GetChild(2).GetComponent<TMP_Text>().text = quantity;
 
         resourceLineUI.transform.GetChild(3).GetComponent<TMP_Text>().text =
-            GameManager.instance.Player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(
-                resource.Type, GameManager.instance.isBuying) + "g";
-        resourceLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.ResourceAction(resource.Type, 1));
+            PlayerManager.instance.Player.CurrentIsland.GetComponent<TradingPost>().GetIslandPrice(
+                resource.Type, PlayerManager.instance.isBuying) + "g";
+        resourceLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => PlayerManager.instance.ResourceAction(resource.Type, 1));
     }
 
     public void CreateShipUpgradeLine(GameObject boat, Vector2 position)
@@ -226,6 +239,6 @@ public class UIManager : MonoBehaviour
         shipUpgradeLineUI.transform.GetChild(1).GetComponent<TMP_Text>().text = stats.BoatName;
         shipUpgradeLineUI.transform.GetChild(2).GetComponent<TMP_Text>().text = string.Format("{0}g", stats.PriceToUpgrade);
 
-        shipUpgradeLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => GameManager.instance.UpgradeBoat(boat));
+        shipUpgradeLineUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => PlayerManager.instance.UpgradeBoat(boat));
     }
 }

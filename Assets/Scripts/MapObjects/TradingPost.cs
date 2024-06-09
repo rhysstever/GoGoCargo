@@ -8,13 +8,13 @@ public class TradingPost : Island
     private List<ResourceType> scarceResources, commonResources;
 
     // Start is called before the first frame update
-    void Start()
+    private new void Start()
     {
         base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    private new void Update()
     {
         base.Update();
     }

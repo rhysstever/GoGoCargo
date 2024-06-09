@@ -8,13 +8,13 @@ public class Shipyard : Island
     private List<GameObject> boats;
 
     // Start is called before the first frame update
-    void Start()
+    private new void Start()
     {
         base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    private new void Update()
     {
         base.Update();
     }

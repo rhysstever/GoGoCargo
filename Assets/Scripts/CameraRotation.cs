@@ -16,11 +16,11 @@ public class CameraRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.CurrentMenuState == MenuState.Sailing 
+        if(PlayerManager.instance.CurrentPlayerState == PlayerState.Sailing 
             && Input.GetMouseButton(0))
         {
             // Rotate the camera around the player, along the Y-axis (circling horizontally), based on the mouse's horizontal movement
-            transform.RotateAround(GameManager.instance.Player.transform.position, Vector3.up, rotationSpeed * Input.GetAxis("Mouse X"));
+            transform.RotateAround(PlayerManager.instance.Player.transform.position, Vector3.up, rotationSpeed * Input.GetAxis("Mouse X"));
         }
     }
 }

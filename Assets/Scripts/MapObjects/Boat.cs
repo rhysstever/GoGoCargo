@@ -11,9 +11,6 @@ public class Boat : MonoBehaviour
     public int Damage { get { return damage; } }
     public int Capacity { get { return capacity; } }
 
-    private float money;
-    public float Money { get { return money; } }
-
     private Dictionary<ResourceType, int> cargo;
     public Dictionary<ResourceType, int> Cargo { get { return cargo; } }
 
@@ -26,7 +23,6 @@ public class Boat : MonoBehaviour
         health = GetComponent<BoatStats>().Health;
         damage = GetComponent<BoatStats>().Damage;
         capacity = GetComponent<BoatStats>().Capacity;
-        money = 100.0f;
         currentIsland = null;
     }
 
@@ -69,18 +65,6 @@ public class Boat : MonoBehaviour
         UIManager.instance.UpdatePlayerText();
     }
 
-    public void AddMoney(float amount)
-    {
-        money += amount;
-        UIManager.instance.UpdatePlayerText();
-    }
-
-    public void RemoveMoney(float amount)
-    {
-        money -= amount;
-        UIManager.instance.UpdatePlayerText();
-    }
-
     public int CargoCount()
     {
         return cargo.Values.Sum();
@@ -114,7 +98,7 @@ public class Boat : MonoBehaviour
             {
                 // An island is close enough
                 currentIsland = island.gameObject;
-                GameManager.instance.ChangeMenuState(MenuState.Trading);
+                PlayerManager.instance.ChangePlayerState(PlayerState.Trading);
                 break;
             }
         }

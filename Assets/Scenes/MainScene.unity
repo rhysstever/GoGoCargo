@@ -3295,8 +3295,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1939713458}
   - component: {fileID: 1939713459}
-  - component: {fileID: 1939713461}
+  - component: {fileID: 1939713463}
   - component: {fileID: 1939713462}
+  - component: {fileID: 1939713461}
   - component: {fileID: 1939713460}
   m_Layer: 0
   m_Name: gameManager
@@ -3332,10 +3333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a16d81b3ef4ca4cb57b98bf0c2fdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1368781533}
   islandsParent: {fileID: 1363931101}
   currentMenuState: 0
-  isBuying: 0
 --- !u!114 &1939713460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3411,6 +3410,20 @@ MonoBehaviour:
   - {fileID: 3408858310079566799, guid: dd54bd48e222a7446affde789d4fe7e3, type: 3}
   - {fileID: 3408858310079566799, guid: 6aebf13189be6594fb237a411f3eed26, type: 3}
   - {fileID: 3408858310079566799, guid: 91913af7ce0611549819ebf67d8933d9, type: 3}
+--- !u!114 &1939713463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939713457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a17d25f803b79d4da88c0b081ee354e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1368781533}
+  isBuying: 0
 --- !u!1 &1980035817
 GameObject:
   m_ObjectHideFlags: 0
