@@ -1728,7 +1728,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -3333,6 +3333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a16d81b3ef4ca4cb57b98bf0c2fdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraRb: {fileID: 963194230}
   islandsParent: {fileID: 1363931101}
   currentMenuState: 0
 --- !u!114 &1939713460

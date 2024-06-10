@@ -32,7 +32,7 @@ public class IslandManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(islandDensity == 0)
+        if(islandDensity <= 0)
             islandDensity = 50;
 
         SpawnIslands();
