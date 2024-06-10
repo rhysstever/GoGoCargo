@@ -6,7 +6,7 @@ public class BoatStats : MonoBehaviour
 {
     [SerializeField]
     private string boatName;
-    public string BoatName { get { return name; } }
+    public string BoatName { get { return boatName; } }
     [SerializeField]
     private Texture image;
     public Texture Image { get { return image; } }
