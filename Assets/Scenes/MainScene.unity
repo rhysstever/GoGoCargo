@@ -212,7 +212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8818590928235121636, guid: d7a0b2f35d4e95d4d80224b547341e0d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 37.3
+      value: 16.77
       objectReference: {fileID: 0}
     - target: {fileID: 8818590928235121636, guid: d7a0b2f35d4e95d4d80224b547341e0d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3422,6 +3422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a17d25f803b79d4da88c0b081ee354e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPlayerState: 0
   player: {fileID: 1368781533}
   isBuying: 0
 --- !u!1 &1980035817

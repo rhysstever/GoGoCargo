@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc6a79ab76589a4ba5ad95d15f3e098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boatName: Tow Boat 1
+  boatName: Tow Boat
   image: {fileID: 2800000, guid: 1311cfc52ce525a4fabef7f4c03ba183, type: 3}
   health: 20
   damage: 0

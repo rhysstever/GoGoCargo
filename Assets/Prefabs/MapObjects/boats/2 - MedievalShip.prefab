@@ -180,12 +180,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc6a79ab76589a4ba5ad95d15f3e098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boatName: Medieval Ship
+  boatName: Galleon
   image: {fileID: 2800000, guid: f4f72a8949efe654187284f8db9b1055, type: 3}
   health: 50
   damage: 0
   capacity: 100
-  priceToUpgrade: 300
+  priceToUpgrade: 900
   moveSpeed: 40
   turnSpeed: 1.5
   maxVelocity: 5
