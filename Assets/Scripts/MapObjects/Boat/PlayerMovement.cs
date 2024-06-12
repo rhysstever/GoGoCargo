@@ -14,9 +14,9 @@ public class PlayerMovement : BoatMovement
     }
 
     // Update is called once per frame
-    private new void Update()
+    private new void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         CheckPlayerInput();
     }
 

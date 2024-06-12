@@ -22,10 +22,16 @@ public class IslandManager : MonoBehaviour
     #endregion Singleton Code
 
     [SerializeField]
-    private GameObject islandParent, water;
+    private GameObject water;
+
+    [SerializeField]
+    private Transform islandParent;
+    public GameObject IslandParent { get { return islandParent.gameObject; } }
+
     [SerializeField]
     private int islandDensity;
     public int IslandDensity { get { return islandDensity; } }
+
     [SerializeField]
     private List<GameObject> islandPrefabs;
 
@@ -35,7 +41,7 @@ public class IslandManager : MonoBehaviour
         if(islandDensity <= 0)
             islandDensity = 50;
 
-        SpawnIslands();
+        //SpawnIslands();
     }
 
     // Update is called once per frame

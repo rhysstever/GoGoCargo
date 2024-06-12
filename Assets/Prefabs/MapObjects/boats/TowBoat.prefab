@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6011461957705173070}
   - component: {fileID: 8539780993307860309}
   m_Layer: 0
-  m_Name: 1 - TowBoat
+  m_Name: TowBoat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ Rigidbody:
   m_GameObject: {fileID: 1983402070653089854}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.1
+  m_Drag: 0.3
   m_AngularDrag: 0.25
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

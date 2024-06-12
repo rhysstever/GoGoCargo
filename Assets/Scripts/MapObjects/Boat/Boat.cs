@@ -81,6 +81,12 @@ public class Boat : MonoBehaviour
         UIManager.instance.UpdatePlayerText();
     }
 
+    public void AddCargo(Dictionary<ResourceType, int> cargo)
+    {
+        foreach(ResourceType resource in cargo.Keys)
+            AddCargo(resource, cargo[resource]);
+    }
+
     public void RemoveResource(ResourceType resource, int amount)
     {
         if (cargo.ContainsKey(resource))

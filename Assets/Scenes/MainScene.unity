@@ -631,6 +631,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8818590928235121636, guid: dd54bd48e222a7446affde789d4fe7e3, type: 3}
   m_PrefabInstance: {fileID: 422159679}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &435835931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 435835932}
+  m_Layer: 0
+  m_Name: pirates
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &435835932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435835931}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1113503928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &524916713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524916714}
+  m_Layer: 0
+  m_Name: traders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &524916714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524916713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1113503928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &558400590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1802,6 +1864,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1113503927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113503928}
+  m_Layer: 0
+  m_Name: boats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1113503928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113503927}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.028999984, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1368781540}
+  - {fileID: 524916714}
+  - {fileID: 435835932}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1139762883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,7 +2515,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1113503928}
     m_Modifications:
     - target: {fileID: 6277431286263436856, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
       propertyPath: m_Name
@@ -2435,7 +2531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6653570174263200898, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: -0.429
       objectReference: {fileID: 0}
     - target: {fileID: 6653570174263200898, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2447,7 +2543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6653570174263200898, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6653570174263200898, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2485,6 +2581,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73a259b2f63a5045ad2718c56e8d51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1368781540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6653570174263200898, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
+  m_PrefabInstance: {fileID: 1368781532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1386942193
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,6 +3398,7 @@ GameObject:
   - component: {fileID: 1939713459}
   - component: {fileID: 1939713463}
   - component: {fileID: 1939713462}
+  - component: {fileID: 1939713464}
   - component: {fileID: 1939713461}
   - component: {fileID: 1939713460}
   m_Layer: 0
@@ -3333,7 +3435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a16d81b3ef4ca4cb57b98bf0c2fdd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraRb: {fileID: 963194230}
   islandsParent: {fileID: 1363931101}
   currentMenuState: 0
 --- !u!114 &1939713460
@@ -3388,6 +3489,7 @@ MonoBehaviour:
   stoneImage: {fileID: 2800000, guid: 4ef4ae9893dd6f34a81a131a94e4a139, type: 3}
   woodImage: {fileID: 2800000, guid: 86131638c884d4047ac0b81e2df24346, type: 3}
   boats:
+  - {fileID: 6277431286263436856, guid: 2a1d1e0d75c3a9e47bf36b02bbdab77c, type: 3}
   - {fileID: 1983402070653089854, guid: 6118618af8e134b41827cbfd8fbc14e5, type: 3}
   - {fileID: 6983839786017731304, guid: 7e42cb8f10422d643abe68fe551c7ac7, type: 3}
 --- !u!114 &1939713462
@@ -3402,8 +3504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cdd71dc8cdd9c47866975482094805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandParent: {fileID: 1363931101}
   water: {fileID: 156697047}
+  islandParent: {fileID: 1363931102}
   islandDensity: 300
   islandPrefabs:
   - {fileID: 3408858310079566799, guid: a884d14ff54e2564984239508f42a464, type: 3}
@@ -3426,6 +3528,20 @@ MonoBehaviour:
   currentPlayerState: 0
   player: {fileID: 1368781533}
   isBuying: 0
+--- !u!114 &1939713464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939713457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b717a583debf64b84ba54c1d1aea34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traderParent: {fileID: 524916714}
+  pirateParent: {fileID: 435835932}
 --- !u!1 &1980035817
 GameObject:
   m_ObjectHideFlags: 0
@@ -3861,4 +3977,4 @@ SceneRoots:
   - {fileID: 156697051}
   - {fileID: 1386942197}
   - {fileID: 1980035820}
-  - {fileID: 1368781532}
+  - {fileID: 1113503928}

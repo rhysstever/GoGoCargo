@@ -43,8 +43,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(player == null)
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Boat>();
+        UpgradeBoat(ResourceManager.instance.Boats[0]);
         ChangePlayerState(PlayerState.Sailing);
         money = 100.0f;
         isBuying = true;
@@ -133,14 +132,15 @@ public class PlayerManager : MonoBehaviour
 
         GameObject newPlayerBoat = Instantiate(boat, position, rotation);
         newPlayerBoat.name = string.Format("Player {0}", newPlayerBoat.GetComponent<BoatStats>().BoatName);
+        newPlayerBoat.tag = "Player";
+        Destroy(newPlayerBoat.GetComponent<BoatMovement>());
+        newPlayerBoat.AddComponent<PlayerMovement>();
         Boat newBoat = newPlayerBoat.GetComponent<Boat>();
 
         Destroy(player.gameObject);
         player = newBoat;
 
-        // Retain money, cargo, and the current island
-        foreach(ResourceType resource in cargo.Keys)
-            player.AddCargo(resource, cargo[resource]);
+        player.AddCargo(cargo);
         player.EnterIsland();
 
         UIManager.instance.UpdatePlayerText();
