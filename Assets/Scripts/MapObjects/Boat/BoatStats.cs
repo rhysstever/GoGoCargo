@@ -11,9 +11,8 @@ public class BoatStats : MonoBehaviour
     private Texture image;
     public Texture Image { get { return image; } }
     [SerializeField]
-    private int health, damage, capacity;
+    private int health, capacity;
     public int Health { get { return health; } }
-    public int Damage { get { return damage; } }
     public int Capacity { get { return capacity; } }
     [SerializeField]
     private float priceToUpgrade, moveSpeed, turnSpeed, maxVelocity, maxAngularVelocity;

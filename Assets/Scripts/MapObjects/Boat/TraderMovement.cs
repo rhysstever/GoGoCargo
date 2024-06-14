@@ -18,7 +18,7 @@ public class TraderMovement : BoatMovement
         if(moveInterval <= 0)
             moveInterval = 2;
         if(turnInterval <= 0)
-            turnInterval = 4;
+            turnInterval = 2;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class TraderMovement : BoatMovement
         Move();
     }
 
-    private new bool CanMove()
+    public new bool CanMove()
     {
         return base.CanMove();
     }

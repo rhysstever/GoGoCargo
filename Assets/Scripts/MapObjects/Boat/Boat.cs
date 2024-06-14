@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    private int health, damage, capacity;
+    private int health, capacity;
     public int Health { get { return health; } }
-    public int Damage { get { return damage; } }
     public int Capacity { get { return capacity; } }
 
     private Dictionary<ResourceType, int> cargo;
@@ -21,7 +20,6 @@ public class Boat : MonoBehaviour
     {
         SetupCargo();
         health = GetComponent<BoatStats>().Health;
-        damage = GetComponent<BoatStats>().Damage;
         capacity = GetComponent<BoatStats>().Capacity;
         currentIsland = null;
     }
@@ -56,13 +54,18 @@ public class Boat : MonoBehaviour
     public void RepairDamage(int amount)
     {
         health += amount;
-        UIManager.instance.UpdatePlayerText();
+        if(gameObject.tag == "Player")
+            UIManager.instance.UpdatePlayerText();
     }
 
     public void TakeDamage(int amount)
     {
         health -= amount;
-        UIManager.instance.UpdatePlayerText();
+        if(gameObject.tag == "Player")
+            UIManager.instance.UpdatePlayerText();
+
+        if(health <= 0)
+            Destroy(gameObject);
     }
 
     public int CargoCount()
@@ -78,7 +81,8 @@ public class Boat : MonoBehaviour
     public void AddCargo(ResourceType resource, int amount)
     {
         cargo[resource] += Mathf.Min(amount, CargoSpace());
-        UIManager.instance.UpdatePlayerText();
+        if(gameObject.tag == "Player")
+            UIManager.instance.UpdatePlayerText();
     }
 
     public void AddCargo(Dictionary<ResourceType, int> cargo)
@@ -92,7 +96,8 @@ public class Boat : MonoBehaviour
         if (cargo.ContainsKey(resource))
         {
             cargo[resource] = Mathf.Max(0, cargo[resource] - amount);
-            UIManager.instance.UpdatePlayerText();
+            if(gameObject.tag == "Player")
+                UIManager.instance.UpdatePlayerText();
         }
     }
 

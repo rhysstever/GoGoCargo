@@ -29,7 +29,7 @@ public class BoatMovement : MonoBehaviour
         
     }
 
-    protected bool CanMove()
+    public bool CanMove()
     {
         return GameManager.instance.CurrentMenuState == MenuState.Sailing
             && GetComponent<Boat>().CurrentIsland == null;

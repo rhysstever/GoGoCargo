@@ -47,12 +47,13 @@ public class PlayerManager : MonoBehaviour
         ChangePlayerState(PlayerState.Sailing);
         money = 100.0f;
         isBuying = true;
+        player.gameObject.AddComponent<Cannon>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+            
     }
 
     public void ChangePlayerState(PlayerState newPlayerState)

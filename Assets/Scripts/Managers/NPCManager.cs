@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
-    [SerializeField]
-    private Transform traderParent, pirateParent;
-
     #region Singleton Code
     // A public reference to this script
     public static NPCManager instance = null;
@@ -24,6 +21,13 @@ public class NPCManager : MonoBehaviour
     }
     #endregion Singleton Code
 
+    [SerializeField]
+    private Transform traderParent, pirateParent, cannonballParent;
+    [SerializeField]
+    private GameObject cannonball;
+    [SerializeField]
+    private float projectileSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,15 +40,15 @@ public class NPCManager : MonoBehaviour
         
     }
 
-    public void SpawnTrader(
+    public GameObject SpawnTrader(
         GameObject boat,
         Vector2 position)
     {
         Dictionary<ResourceType, int> newCargoHold = new Dictionary<ResourceType, int>();
-        SpawnTrader(boat, position, newCargoHold);
+        return SpawnTrader(boat, position, newCargoHold);
     }
 
-    public void SpawnTrader(
+    public GameObject SpawnTrader(
     GameObject boat,
     Vector2 position,
     Dictionary<ResourceType, int> currentCargo)
@@ -59,9 +63,11 @@ public class NPCManager : MonoBehaviour
         Destroy(newBoat.GetComponent<BoatMovement>());
         newBoat.AddComponent<TraderMovement>();
         newBoat.GetComponent<TraderMovement>().FindNewDestination();
+
+        return newBoat;
     }
 
-    public void SpawnPirate(
+    public GameObject SpawnPirate(
         GameObject boat,
         Vector2 position)
     {
@@ -73,5 +79,21 @@ public class NPCManager : MonoBehaviour
         newBoat.tag = "Pirate";
         Destroy(newBoat.GetComponent<BoatMovement>());
         newBoat.AddComponent<PirateMovement>();
+
+        return newBoat;
+    }
+
+    public GameObject SpawnCannonball(
+        Vector3 position,
+        Vector3 direction)
+    {
+        GameObject newCannonball = Instantiate(
+            cannonball,
+            position,
+            Quaternion.identity,
+            cannonballParent);
+        newCannonball.GetComponent<Rigidbody>().AddForce(direction * projectileSpeed);
+
+        return newCannonball;
     }
 }

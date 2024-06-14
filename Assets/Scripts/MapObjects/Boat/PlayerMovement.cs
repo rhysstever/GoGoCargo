@@ -20,7 +20,7 @@ public class PlayerMovement : BoatMovement
         CheckPlayerInput();
     }
 
-    private new bool CanMove()
+    public new bool CanMove()
     {
         return base.CanMove() 
             && PlayerManager.instance.CurrentPlayerState == PlayerState.Sailing;

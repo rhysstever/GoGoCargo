@@ -17,7 +17,7 @@ public class PirateMovement : BoatMovement
         Move();
     }
 
-    private new bool CanMove()
+    public new bool CanMove()
     {
         return base.CanMove();
     }

@@ -182,8 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boatName: Galleon
   image: {fileID: 2800000, guid: f4f72a8949efe654187284f8db9b1055, type: 3}
-  health: 50
-  damage: 0
+  health: 1
   capacity: 100
   priceToUpgrade: 900
   moveSpeed: 40
