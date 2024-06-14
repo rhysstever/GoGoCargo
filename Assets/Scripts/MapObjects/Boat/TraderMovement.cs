@@ -6,11 +6,19 @@ public class TraderMovement : BoatMovement
 {
     [SerializeField]
     private GameObject currentDestination;
+    [SerializeField]
+    private int moveInterval, turnInterval;
+
+    private int currentMoveFrameTimer, currentTurnFrameTimer;
 
     // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
+        if(moveInterval <= 0)
+            moveInterval = 2;
+        if(turnInterval <= 0)
+            turnInterval = 4;
     }
 
     // Update is called once per frame
@@ -29,6 +37,7 @@ public class TraderMovement : BoatMovement
     {
         if(CanMove())
         {
+            IncrementMovementTimers();
             MoveTowardsDestination();
 
             if(Vector3.Distance(
@@ -56,20 +65,37 @@ public class TraderMovement : BoatMovement
 
     private void MoveTowardsDestination()
     {
-        // If the destination is in front of the boat, move forward
-        if(Vector3.Dot(
-            transform.forward, 
-            currentDestination.transform.position - gameObject.transform.position)
-            > 0)
-            Move(moveSpeed);
+        if(currentMoveFrameTimer >= moveInterval)
+        {
+            // If the destination is in front of the boat, move forward
+            if(Vector3.Dot(
+                transform.forward,
+                currentDestination.transform.position - gameObject.transform.position)
+                > 0)
+            {
+                Move(moveSpeed);
+                currentMoveFrameTimer = 0;
+            }
+        }
 
-        // If the destination is to the right of the boat, turn right, otherwise turn left
-        if(Vector3.Dot(
-            transform.right, 
-            currentDestination.transform.position - gameObject.transform.position)
-            >= 0)
-            Turn(turnSpeed);
-        else 
-            Turn(turnSpeed);
+        if(currentTurnFrameTimer >= turnInterval)
+        {
+            // If the destination is to the right of the boat, turn right, otherwise turn left
+            if(Vector3.Dot(
+                transform.right,
+                currentDestination.transform.position - gameObject.transform.position)
+                >= 0)
+                Turn(turnSpeed);
+            else
+                Turn(-turnSpeed);
+
+            currentTurnFrameTimer = 0;
+        }
+    }
+
+    private void IncrementMovementTimers()
+    {
+        currentMoveFrameTimer++;
+        currentTurnFrameTimer++;
     }
 }
