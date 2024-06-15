@@ -41,7 +41,7 @@ public class IslandManager : MonoBehaviour
         if(islandDensity <= 0)
             islandDensity = 50;
 
-        //SpawnIslands();
+        SpawnIslands();
     }
 
     // Update is called once per frame

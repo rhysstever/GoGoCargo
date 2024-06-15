@@ -31,7 +31,7 @@ public class NPCManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnTrader(ResourceManager.instance.Boats[2], new Vector2(15.0f, 5.0f));
+        //SpawnTrader(ResourceManager.instance.Boats[2], new Vector2(15.0f, 5.0f));
     }
 
     // Update is called once per frame
