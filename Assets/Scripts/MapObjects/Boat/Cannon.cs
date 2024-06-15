@@ -5,14 +5,16 @@ using UnityEngine;
 public class Cannon : MonoBehaviour
 {
     [SerializeField]
-    private float attackSpeed;
+    protected float attackSpeed;
+    public float AttackSpeed { get { return attackSpeed; } }
     [SerializeField]
-    private int damage;
+    protected int damage;
+    public int Damage { get { return damage; } }
 
-    private float currentAttackTimer;
+    protected float currentAttackTimer;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         if(attackSpeed <= 0)
             attackSpeed = 1.0f;
@@ -20,40 +22,55 @@ public class Cannon : MonoBehaviour
             damage = 1;
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         if(CanFire())
         {
             currentAttackTimer += Time.deltaTime;
 
-            if(gameObject.tag == "Player"
-                && Input.GetKeyDown(KeyCode.Space)
-                && currentAttackTimer >= attackSpeed)
-                Fire();
+            if(currentAttackTimer >= attackSpeed)
+            {
+                if(gameObject.tag == "Player")
+                {
+                    if(Input.GetKeyDown(KeyCode.Q))
+                        Fire(false);
+                    else if(Input.GetKeyDown(KeyCode.E))
+                        Fire(true);
+                } 
+                else if(gameObject.tag == "Pirate")
+                {
+                    
+                }
+            }
         }
     }
 
-    private bool CanFire()
+    protected bool CanFire()
     {
         return GameManager.instance.CurrentMenuState == MenuState.Sailing
             && PlayerManager.instance.CurrentPlayerState == PlayerState.Sailing;
     }
 
-    private void Fire()
+    protected void Fire(bool isFiringRight)
     {
         Vector3 positionOffset = gameObject.transform.right / 3.0f;
         Vector3 directionOffset = gameObject.transform.up / 8.0f;
 
-        GameObject cannonBallLeft = NPCManager.instance.SpawnCannonball(
-            gameObject.transform.position + new Vector3(0, 0.5f, 0) + -positionOffset,
-            -gameObject.transform.right + directionOffset);
-        GameObject cannonBallRight = NPCManager.instance.SpawnCannonball(
-            gameObject.transform.position + new Vector3(0, 0.5f, 0) + positionOffset,
-            gameObject.transform.right + directionOffset);
-        cannonBallLeft.GetComponent<Cannonball>().source = gameObject;
-        cannonBallRight.GetComponent<Cannonball>().source = gameObject;
-        cannonBallLeft.GetComponent<Cannonball>().damage = damage;
-        cannonBallRight.GetComponent<Cannonball>().damage = damage;
+        Vector3 position = gameObject.transform.position + new Vector3(0, 0.5f, 0);
+        if(isFiringRight)
+            position += positionOffset;
+        else
+            position -= positionOffset;
+
+        Vector3 direction = directionOffset;
+        if(isFiringRight)
+            direction += gameObject.transform.right;
+        else
+            direction -= gameObject.transform.right;
+
+        GameObject cannonBall = NPCManager.instance.SpawnCannonball(position, direction);
+        cannonBall.GetComponent<Cannonball>().source = gameObject;
+        cannonBall.GetComponent<Cannonball>().damage = damage;
 
         currentAttackTimer = 0.0f;
     }
