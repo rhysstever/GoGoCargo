@@ -180,10 +180,9 @@ MonoBehaviour:
   boatName: Fishing Boat
   image: {fileID: 2800000, guid: 1f9dd904ff3fe1142b775fc88aed12d9, type: 3}
   health: 10
-  damage: 0
   capacity: 5
   priceToUpgrade: 0
-  moveSpeed: 10
+  moveSpeed: 15
   turnSpeed: 1.5
   maxVelocity: 2
   maxAngularVelocity: 0.15
