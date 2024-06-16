@@ -138,6 +138,8 @@ public class PlayerManager : MonoBehaviour
         newPlayerBoat.AddComponent<PlayerMovement>();
         Boat newBoat = newPlayerBoat.GetComponent<Boat>();
 
+        newBoat.GetComponent<PlayerMovement>().ChangeRegion(IslandManager.instance.FindCurrentRegion(newBoat.transform.position));
+
         Destroy(player.gameObject);
         player = newBoat;
 

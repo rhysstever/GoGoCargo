@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    private int health, capacity;
+    private int maxHealth, health, capacity;
     public int Health { get { return health; } }
     public int Capacity { get { return capacity; } }
 
@@ -19,6 +19,7 @@ public class Boat : MonoBehaviour
     private void Awake()
     {
         SetupCargo();
+        maxHealth = GetComponent<BoatStats>().Health;
         health = GetComponent<BoatStats>().Health;
         capacity = GetComponent<BoatStats>().Capacity;
         currentIsland = null;
@@ -40,6 +41,14 @@ public class Boat : MonoBehaviour
             else
                 ExitIsland();
         }
+        else if(Input.GetKeyDown(KeyCode.R))
+        {
+            if(cargo[ResourceType.Wood] >= 5)
+            {
+                RemoveResource(ResourceType.Wood, 5);
+                RepairDamage(5);
+            }
+        }
     }
 
     private void SetupCargo()
@@ -53,7 +62,7 @@ public class Boat : MonoBehaviour
 
     public void RepairDamage(int amount)
     {
-        health += amount;
+        health = Mathf.Clamp(health + amount, health, maxHealth);
         if(gameObject.tag == "Player")
             UIManager.instance.UpdatePlayerText();
     }

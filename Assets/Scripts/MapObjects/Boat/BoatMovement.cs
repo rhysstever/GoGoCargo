@@ -7,6 +7,9 @@ public class BoatMovement : MonoBehaviour
     protected Rigidbody rb;
     protected float moveSpeed, turnSpeed, maxVelocity, maxAngularVelocity;
 
+    private MapRegion currentRegion;
+    public MapRegion CurrentRegion { get { return currentRegion; } }
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -42,6 +45,8 @@ public class BoatMovement : MonoBehaviour
         // Clamp speed
         float clampedVelocity = Mathf.Clamp(rb.velocity.magnitude, 0, maxVelocity);
         rb.velocity = rb.velocity.normalized * clampedVelocity;
+
+        CheckCurrentRegion();
     }
 
     protected void Turn(float turnSpeed)
@@ -50,5 +55,26 @@ public class BoatMovement : MonoBehaviour
         // Clamp turn speed
         float clampedAngularVelocity = Mathf.Clamp(rb.angularVelocity.magnitude, 0, maxAngularVelocity);
         rb.angularVelocity = rb.angularVelocity.normalized * clampedAngularVelocity;
+    }
+
+    private void CheckCurrentRegion()
+    {
+        if(gameObject.transform.position.x < currentRegion.BoundsStart.x)
+            ChangeRegion(currentRegion.DownNeighbor);
+        else if(gameObject.transform.position.x > currentRegion.BoundsEnd.x)
+            ChangeRegion(currentRegion.UpNeighbor);
+
+        if(gameObject.transform.position.z < currentRegion.BoundsStart.z)
+            ChangeRegion(currentRegion.LeftNeighbor);
+        else if(gameObject.transform.position.z > currentRegion.BoundsEnd.z)
+            ChangeRegion(currentRegion.RightNeighbor);
+    }
+
+    public void ChangeRegion(MapRegion newRegion)
+    {
+        if(currentRegion != null)
+            currentRegion.RemoveBoat(gameObject);
+        newRegion.AddBoat(gameObject);
+        currentRegion = newRegion;
     }
 }

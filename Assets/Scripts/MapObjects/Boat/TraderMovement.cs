@@ -37,6 +37,9 @@ public class TraderMovement : BoatMovement
     {
         if(CanMove())
         {
+            if(currentDestination == null)
+                FindNewDestination();
+
             IncrementMovementTimers();
             MoveTowardsDestination();
 
@@ -54,7 +57,22 @@ public class TraderMovement : BoatMovement
 
     public void FindNewDestination()
     {
-        currentDestination = FindRandomIsland();
+        if(CurrentRegion.RightNeighbor.Islands.Count
+            + CurrentRegion.DownNeighbor.Islands.Count
+            + CurrentRegion.LeftNeighbor.Islands.Count
+            + CurrentRegion.UpNeighbor.Islands.Count == 0)
+            currentDestination = FindRandomIsland();
+        else
+        {
+            MapRegion newRegion;
+            do
+            {
+                newRegion = CurrentRegion.Neighbors[Random.Range(0, CurrentRegion.Neighbors.Length)];
+            } 
+            while(newRegion.Islands.Count <= 0);
+
+            currentDestination = newRegion.Islands[Random.Range(0, newRegion.Islands.Count)];
+        }
     }
 
     private GameObject FindRandomIsland()

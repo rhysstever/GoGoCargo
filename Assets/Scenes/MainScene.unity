@@ -2807,7 +2807,7 @@ MonoBehaviour:
   m_text: 'Sail your ship from island to island using WASD
 
 
-    Trade goodsto earn
+    Trade goods to earn
     a profit to upgrade your ship'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3114,7 +3114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3178616495536871619, guid: 18184bf77aee1cf44a60f277a5519106, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150
+      value: -115
       objectReference: {fileID: 0}
     - target: {fileID: 3178616495536871619, guid: 18184bf77aee1cf44a60f277a5519106, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3698,7 +3698,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   water: {fileID: 156697047}
   islandParent: {fileID: 1363931102}
-  islandDensity: 300
+  islandSpawnPosBufferPercentage: 5
+  mapRegionSize: 200
   islandPrefabs:
   - {fileID: 3408858310079566799, guid: a884d14ff54e2564984239508f42a464, type: 3}
   - {fileID: 3408858310079566799, guid: 6d7b87a5308a1e942992885ad5c14243, type: 3}

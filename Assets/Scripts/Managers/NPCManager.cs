@@ -31,7 +31,7 @@ public class NPCManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //SpawnTrader(ResourceManager.instance.Boats[2], new Vector2(15.0f, 5.0f));
+        SpawnTrader(ResourceManager.instance.Boats[1], new Vector2(15.0f, 5.0f));
     }
 
     // Update is called once per frame
@@ -62,7 +62,7 @@ public class NPCManager : MonoBehaviour
         newBoat.GetComponent<Boat>().AddCargo(currentCargo);
         Destroy(newBoat.GetComponent<BoatMovement>());
         newBoat.AddComponent<TraderMovement>();
-        newBoat.GetComponent<TraderMovement>().FindNewDestination();
+        newBoat.GetComponent<TraderMovement>().ChangeRegion(IslandManager.instance.FindCurrentRegion(newBoat.transform.position));
 
         return newBoat;
     }
@@ -79,6 +79,7 @@ public class NPCManager : MonoBehaviour
         newBoat.tag = "Pirate";
         Destroy(newBoat.GetComponent<BoatMovement>());
         newBoat.AddComponent<PirateMovement>();
+        newBoat.GetComponent<PirateMovement>().ChangeRegion(IslandManager.instance.FindCurrentRegion(newBoat.transform.position));
 
         return newBoat;
     }
