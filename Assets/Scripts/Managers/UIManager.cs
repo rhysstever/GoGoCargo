@@ -30,9 +30,9 @@ public class UIManager : MonoBehaviour
     private GameObject mainMenuUIParent, controlsUIParent, sailingUIParent, tradingUIParent, pauseUIParent, gameEndUIParent;
 
     [SerializeField]    // Buttons
-    private Button mainMenuToControlsButton, controlsToGameButton, pauseToMainMainButton, pauseToControlsButton, pauseToGameButton;
+    private Button mainMenuToControlsButton, controlsToGameButton, pauseToMainMainButton, pauseToControlsButton, pauseToGameButton, gameEndToMainMenuButton;
 
-    [SerializeField]    // Text
+    [SerializeField]    // Text 
     private TMP_Text healthText, moneyText, inventoryText;
 
     [SerializeField]    // Trading UI
@@ -86,6 +86,7 @@ public class UIManager : MonoBehaviour
         pauseToGameButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.Sailing));
         buyButton.onClick.AddListener(() => ChangeTradingState(true));
         sellButton.onClick.AddListener(() => ChangeTradingState(false));
+        gameEndToMainMenuButton.onClick.AddListener(() => GameManager.instance.ChangeMenuState(MenuState.MainMenu));
     }
 
     public void ChangeUIState(MenuState menuState, PlayerState playerState)

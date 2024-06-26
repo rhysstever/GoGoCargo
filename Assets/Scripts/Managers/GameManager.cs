@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
         switch(newMenuState)
         {
             case MenuState.MainMenu:
+                PlayerManager.instance.SetupPlayerManager();
+                NPCManager.instance.SetupNPCs();
                 break;
             case MenuState.Controls:
                 break;

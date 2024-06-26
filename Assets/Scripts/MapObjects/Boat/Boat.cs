@@ -74,7 +74,11 @@ public class Boat : MonoBehaviour
             UIManager.instance.UpdatePlayerText();
 
         if(health <= 0)
+        {
+            if(gameObject.tag == "Player")
+                GameManager.instance.ChangeMenuState(MenuState.GameEnd);
             Destroy(gameObject);
+        }
     }
 
     public int CargoCount()

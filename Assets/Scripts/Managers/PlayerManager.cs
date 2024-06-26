@@ -43,17 +43,24 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        money = 100.0f;
-        UpgradeBoat(ResourceManager.instance.Boats[0]);
-        ChangePlayerState(PlayerState.Sailing);
-        isBuying = true;
-        player.gameObject.AddComponent<Cannon>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
             
+    }
+
+    public void SetupPlayerManager()
+    {
+        money = 100.0f;
+        UpgradeBoat(ResourceManager.instance.Boats[0]);
+        ChangePlayerState(PlayerState.Sailing);
+        isBuying = true;
+        if(player.gameObject.GetComponent<Cannon>() != null)
+            Destroy(player.gameObject.GetComponent<Cannon>());
+        player.gameObject.AddComponent<Cannon>();
     }
 
     public void ChangePlayerState(PlayerState newPlayerState)
